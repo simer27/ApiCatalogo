@@ -20,9 +20,21 @@ namespace ApiCatalogo.Controllers
             var produtos = _context.Produtos.ToList();
             if (produtos is null)
             {
-                return NotFound("Produtos não encontrados...");
+                return NotFound("Produtos não encontrado...");
             }
             return produtos;
+        }
+
+        [HttpGet("{id:int}")]
+        public ActionResult<Produto> Get(int id) 
+        {
+            var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+            if (produto == null)
+            {
+                return NotFound("Produto não encontrado...");
+            }
+            
+            return produto;
         }
 
     }
