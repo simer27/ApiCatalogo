@@ -26,8 +26,8 @@ namespace ApiCatalogo.Controllers
             return Ok(categorias);
         }
 
-        [HttpGet("{id:int}")]
 
+        [HttpGet("{id:int}", Name ="ObterCategoria")]
         public ActionResult<Categoria> Get(int id)
         {
             var categoria = _context.Categorias.FirstOrDefault( c => c.CategoriaId == id);
@@ -37,6 +37,20 @@ namespace ApiCatalogo.Controllers
                 return NotFound("Categoria não encontrada...");
             }
             return categoria;
+        }
+
+
+        [HttpPost]
+        public ActionResult Post(Categoria categoria)
+        {
+            if (categoria is null)
+                return BadRequest();
+
+            _context.Categorias.Add(categoria);
+            _context.SaveChanges();
+
+            return new CreatedAtRouteResult("ObterCategoria",
+                new { id = categoria.CategoriaId }, categoria);
         }
     }
 }
