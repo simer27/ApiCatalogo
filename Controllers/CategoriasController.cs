@@ -17,10 +17,22 @@ namespace ApiCatalogo.Controllers
 
         [HttpGet("produtos")]
         public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
-        {
+        {            
             return _context.Categorias.Include(p => p.Produtos).ToList();
         }
 
+
+        [HttpGet("produtos/{id:int}")]
+        public ActionResult<Categoria> GetCategoriasProdutos(int id)
+        {
+            var cProdutos = _context.Categorias.Include(p => p.Produtos).FirstOrDefault(c => c.CategoriaId == id);
+
+            if (cProdutos == null)
+            {
+                return NotFound("Categoria Não encontrada...");
+            }
+            return cProdutos;
+        }
 
         [HttpGet]
         public ActionResult<IEnumerable<Categoria>> Get()
