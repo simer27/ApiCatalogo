@@ -38,8 +38,8 @@ namespace ApiCatalogo.Controllers
             return produto;
         }
 
-        [HttpPost]
 
+        [HttpPost]
         public ActionResult Post (Produto produto)
         {
 
@@ -68,8 +68,8 @@ namespace ApiCatalogo.Controllers
             return Ok(produto);
         }
 
-        [HttpDelete("{id:int}")]
 
+        [HttpDelete("{id:int}")]
         public ActionResult Delete(int id)
         {
             var produto = _context.Produtos.FirstOrDefault( p => p.ProdutoId == id);
